@@ -56,20 +56,45 @@ app.initialize();
 //
 var onSuccess = function(position) {
     
-    var myLatLng = {lat: position.coords.latitude , lng: position.coords.longitude};
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: myLatLng ,
-      zoom: 15
-    });
+    $.ajax({
+        method:     'GET',
+        dataType:   'json',
+        url: 'https://skipatrolproductiondatabase.herokuapp.com/destinations/4.json',
+        success: function(response) {
+           var destLatLong = {lat: response.lat, lng: response.long};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: destLatLong,
+                zoom: 13
+            });
 
-    var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        title: 'Welcome to my City!'
-    });
+            //Geo-located marker based off phone
+            var marker = new google.maps.Marker({
+                position: {lat: position.coords.latitude , lng: position.coords.longitude},
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                title: 'Welcome to my City!'
+            }); 
 
+            //Pulled from database
+            $.ajax({
+                method:     'GET',
+                dataType:   'json',
+                url: 'https://skipatrolproductiondatabase.herokuapp.com/groups/1/skiers/current_checkin/pings/last',
+                success: function(response) {
+                    for(var i = 0; i<response[0].length; i++) {
+                        var groupMarker = new google.maps.Marker({
+                            position: {lat: response[0][i].lat , lng: response[0][i].long},
+                            map: map,
+                            draggable: true,
+                            animation: google.maps.Animation.DROP,
+                            title: 'Welcome to my City!'
+                        }); 
+                    }      
+                }       
+            });
+        }
+    });
 };
 
 // onError Callback receives a PositionError object
