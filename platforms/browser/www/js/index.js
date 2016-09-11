@@ -82,13 +82,15 @@ var onSuccess = function(position) {
                 dataType:   'json',
                 url: 'https://skipatrolproductiondatabase.herokuapp.com/groups/1/skiers/current_checkin/pings/last',
                 success: function(response) {
+                    var image = 'img/skiing.svg'
                     for(var i = 0; i<response[0].length; i++) {
                         var groupMarker = new google.maps.Marker({
                             position: {lat: response[0][i].lat , lng: response[0][i].long},
                             map: map,
-                            draggable: true,
-                            animation: google.maps.Animation.DROP,
-                            title: 'Welcome to my City!'
+                            icon: image
+                            // icon: image
+                            // This doesn't work yet!
+                            // map_icon_label: '<span class="map-icon map-icon-skiing"></span>'       
                         }); 
                     }      
                 }       
