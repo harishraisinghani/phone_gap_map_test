@@ -55,14 +55,21 @@ app.initialize();
 // current GPS coordinates
 //
 var onSuccess = function(position) {
-    alert('Latitude: '          + position.coords.latitude          + '\n' +
-          'Longitude: '         + position.coords.longitude         + '\n' +
-          'Altitude: '          + position.coords.altitude          + '\n' +
-          'Accuracy: '          + position.coords.accuracy          + '\n' +
-          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-          'Heading: '           + position.coords.heading           + '\n' +
-          'Speed: '             + position.coords.speed             + '\n' +
-          'Timestamp: '         + position.timestamp                + '\n');
+    
+    var myLatLng = {lat: position.coords.latitude , lng: position.coords.longitude};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng ,
+      zoom: 15
+    });
+
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        title: 'Welcome to my City!'
+    });
+
 };
 
 // onError Callback receives a PositionError object
@@ -72,13 +79,5 @@ function onError(error) {
           'message: ' + error.message + '\n');
 }
 
-var position = navigator.geolocation.getCurrentPosition(onSuccess, onError);
+navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
-var loadMap = function initMap(position) {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 8
-    });
-    }
-
-loadMap();
