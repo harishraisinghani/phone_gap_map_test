@@ -18,7 +18,7 @@
     under the License.
 -->
 <html>
-    <head>
+<head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
@@ -27,48 +27,52 @@
             * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" type="text/css" href="dist/css/map-icons.css">
-        <title>Hello World</title>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-        <script type="text/javascript" src="dist/js/map-icons.js"></script>
+            -->
+            <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+            <meta name="format-detection" content="telephone=no">
+            <meta name="msapplication-tap-highlight" content="no">
+            <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+            <link rel="stylesheet" type="text/css" href="css/index.css">
+            <link rel="stylesheet" type="text/css" href="dist/css/map-icons.css">
+            <title>Hello World</title>
+            <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+            <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+            <script type="text/javascript" src="dist/js/map-icons.js"></script>
 
-        <style>
-          html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-          }
-          #map {
-            height: 100%;
-          }
+            <style>
+              html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                height: 100%;
+            }
 
-          #content {
-            padding: 0;
-            position :absolute !important;
-            top: 40px !important;
-            right: 0;
-            bottom: 40px !important;
-            left: 0 !important;
-          }
+            #content {
+                padding: 0;
+                position :absolute !important;
+                top: 40px !important;
+                right: 0;
+                bottom: 40px !important;
+                left: 0 !important;
+            }
         </style>
     </head>
     <body>
-          
-        <div data-role = "content" id="content">
+
+<!--         <div data-role = "content" id="content">
           <div id="map"></div>
-        </div>
+      </div> -->
+
+      <div>
+          <a href="main.html">To Main Page</a>
+      </div>
 
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9ZYaH3tGSZfgnZqHkmO9b2opCiGYYSNg&callback=initMap" async defer></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
-</html>
+      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9ZYaH3tGSZfgnZqHkmO9b2opCiGYYSNg&callback=initMap" async defer></script> -->
+      <script type="text/javascript" src="cordova.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+  </body>
+  </html>
