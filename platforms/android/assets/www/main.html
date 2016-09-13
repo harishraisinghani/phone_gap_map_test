@@ -51,10 +51,10 @@
   <div class="button_container">
 
     <div class="alert_box">
-      <button class="check_for_alerts" type="button" class="btn btn-default">Check for Alerts</button>
+      <button id="check_for_alerts" type="button" class="btn btn-default">Check for Alerts</button>
     </div>
     <div>
-      <button class="logout" type="button" class="btn btn-default">Logout</button>
+      <button id="logout" type="button" class="btn btn-default">Logout</button>
     </div>
 
   </div>
@@ -79,25 +79,32 @@
     }
 
     function display_skier_info(data) {
-      $('.check_for_alerts').attr('style', 'display: none;');
-      $('.alert_box').text(data["name"]);
+      $('#check_for_alerts').remove();
+      $('.alert_box').append('<div>').text(data["name"]);
       $('.alert_box').prepend($('<img>'));
       $('.alert_box img').attr('src', 'https://66.media.tumblr.com/e0eef5b922e0410b30e9de3253ab15b5/tumblr_mvw1z7cLyQ1r3i1mvo1_500.jpg');
+      $('.alert_box').append($('<button>').text('Dismiss').attr('id', 'dismiss').attr('class', 'btn btn-default'));
+    }
+
+    function set_dismiss_event_handler(){
+      $('#dismiss').on('click', function(){
+        location.reload();
+      });
     }
 
     $(document).ready(function() {
-      $('.check_for_alerts').on('click', function() {
+      $('#check_for_alerts').on('click', function() {
         $.ajax({
           method: 'GET',
           dataType: 'json',
           crossDomain: true,
           url: 'http://skipatrolproductiondatabase.herokuapp.com/patrollers/1/alert',
           success: function(data) {
-            console.log(data)
             if( data["lat"] && data["long"])
             {
               place_alert_marker(data);
               display_skier_info(data);
+              set_dismiss_event_handler();
             }
           }
         });
