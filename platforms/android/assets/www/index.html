@@ -1,78 +1,94 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
 <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-            -->
-            <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+
+
             <meta name="format-detection" content="telephone=no">
             <meta name="msapplication-tap-highlight" content="no">
             <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
             <link rel="stylesheet" type="text/css" href="css/index.css">
             <link rel="stylesheet" type="text/css" href="dist/css/map-icons.css">
-            <title>Hello World</title>
+            <title>Ski Patrollers</title>
             <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
             <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
             <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
             <script type="text/javascript" src="dist/js/map-icons.js"></script>
+            <script type="text/javascript" src="cordova.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
 
             <style>
-              html, body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            #map {
-                height: 100%;
-            }
+                body {background-image: url('img/Ski_patrol_image_mobile.png'); background-repeat:no-repeat; background-size: cover;
+                }
 
-            #content {
-                padding: 0;
-                position :absolute !important;
-                top: 40px !important;
-                right: 0;
-                bottom: 40px !important;
-                left: 0 !important;
-            }
+                .title {
+                    color: white;
+                }
+
+                #login-form h1 {
+                    color: white;
+                }
+
+                .ui-content {
+                    padding-top: 100px;
+                    text-align: center;
+                }
+
+                input[type=submit] {
+                    padding:5px 15px; 
+                    background:#5D5A75;
+                    color: white; 
+                    border:0 none;
+                    cursor:pointer;
+                    -webkit-border-radius: 5px;
+                    border-radius: 5px; 
+                }
         </style>
     </head>
     <body>
+        <div data-role="page" data-theme="a" id="login-form">
+            <div data-role="header">
+                <h1>Welcome to SkiApp for Patrollers!</h1>
+            </div>
 
-<!--         <div data-role = "content" id="content">
-          <div id="map"></div>
-      </div> -->
+            <div data-role = 'main' class="ui-content">
+                <form action="https://skipatrolproductiondatabase.herokuapp.com/patrollers/login" id="login" method="post">
+                    <div>
+                        <label class="title"></label>
+                        <input type="text" id="username" name="username" placeholder="Username">
+                    </div>
+                    <br>
+                    <div>
+                        <label class="title"></label>
+                        <input type="text" id="password" name="password" placeholder="Password">
+                    </div>
+                    <br>
+                    <div>
+                        <input type="submit" id="submitButton"  name="submitButton" value="Login">
+                    </div>
+                </form>
+            </div>
+        </div>
 
-      <div>
-          <a href="main.html">To Main Page</a>
-      </div>
+        <script>
+            $("#login").submit(function(event){
+                event.preventDefault();
 
+                var $form = $(this),
+                    url = $form.attr('action');
 
-      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9ZYaH3tGSZfgnZqHkmO9b2opCiGYYSNg&callback=initMap" async defer></script> -->
-      <script type="text/javascript" src="cordova.js"></script>
-      <script type="text/javascript" src="js/index.js"></script>
+                var posting = $.post(url, {username: $('#username').val(), password: $('#password').val() }, function() {
+                })
+                .done(function(data) {
+                    window.localStorage.setItem("user_id", data[0]);
+                    window.localStorage.setItem("token", data[1]);
+                    if(window.localStorage.getItem("token")) {
+                        window.location.href="main.html"; 
+                    }
+                })
+                .fail(function() {
+                    alert("Sorry, incorrect username or password");
+                })
+            });
+        </script>
   </body>
   </html>

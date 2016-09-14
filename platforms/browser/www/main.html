@@ -3,10 +3,7 @@
 <head>
 
   <meta charset="utf-8">
-
-  <!-- This bootstrap code makes the pages responsive to any device width -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
   <!-- Bootstrap - Latest compiled and minified CSS -->
@@ -21,21 +18,35 @@
   <title>Main View</title>
 
   <style>
-    html, body {
+    .container {
       height: 100%;
       margin: 0;
       padding: 0;
+      background-color: #272d28;
+      position:relative;
     }
     #map {
       height: 65%;
     }
     #content {
+      position:relative;
+      padding: 0;
       height: 700px;
       width: 100%;
     }
+
     .logout {
       margin-top: 5%;
       margin-left: 45%;
+    }
+
+    #dismiss {
+      float:right;
+    }
+
+    div #alert-name {
+      color: white;
+      text-align: center;
     }
 
   </style>
@@ -45,28 +56,36 @@
   <div class="container">
     <div data-role = "content" id="content">
       <div id="map"></div>
+      <div class="alert_box text-center">
+        <button id="check_for_alerts" type="button" class="btn btn-primary">Check for Alerts</button>
+      </div>
     </div>
-  </div>
 
-  <div class="button_container">
-
-    <div class="alert_box">
-      <button id="check_for_alerts" type="button" class="btn btn-default">Check for Alerts</button>
-    </div>
+    
     <div>
-      <button id="logout" type="button" class="btn btn-default">Logout</button>
+      <a href="index.html"><button id="logout" type="button" class="btn btn-secondary">Logout</button></a>
     </div>
-
   </div>
+
+<!--   <div class="button_container">
+
+  </div> -->
 
   <script>
-
     var map;
     function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 49.2, lng: -123},
-        zoom: 10
-      });
+      $.ajax({
+        method: 'GET',
+        dataType:'json',
+        url: 'https://skipatrolproductiondatabase.herokuapp.com/destinations/4.json',
+        success: function(response) {
+           var destLatLong = {lat: response.lat, lng: response.long};
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: destLatLong,
+                zoom: 13
+            });
+          }
+        });
     }
 
     function place_alert_marker(data){
@@ -80,10 +99,10 @@
 
     function display_skier_info(data) {
       $('#check_for_alerts').remove();
-      $('.alert_box').append('<div>').text(data["name"]);
+      $('.alert_box').append('<div>').text(data["name"]).attr('id', 'alert-name');
       $('.alert_box').prepend($('<img>'));
-      $('.alert_box img').attr('src', 'https://66.media.tumblr.com/e0eef5b922e0410b30e9de3253ab15b5/tumblr_mvw1z7cLyQ1r3i1mvo1_500.jpg');
-      $('.alert_box').append($('<button>').text('Dismiss').attr('id', 'dismiss').attr('class', 'btn btn-default'));
+      $('.alert_box img').attr('src', 'https://66.media.tumblr.com/e0eef5b922e0410b30e9de3253ab15b5/tumblr_mvw1z7cLyQ1r3i1mvo1_500.jpg').attr('style', 'width: 100%; max-height: 100%');
+      $('.alert_box').append($('<button>').text('Dismiss').attr('id', 'dismiss').attr('class', 'btn btn-secondary'));
     }
 
     function set_dismiss_event_handler(){
@@ -113,7 +132,7 @@
 
   </script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9ZYaH3tGSZfgnZqHkmO9b2opCiGYYSNg&sensor=true&callback=initMap"
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9ZYaH3tGSZfgnZqHkmO9b2opCiGYYSNg&callback=initMap"
   async defer></script>
 
 </body>
