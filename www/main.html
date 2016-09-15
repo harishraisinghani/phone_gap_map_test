@@ -31,16 +31,17 @@
     #content {
       position:relative;
       padding: 0;
-      height: 700px;
+      height: 600px;
       width: 100%;
     }
 
-    .logout {
+/*    .logout {
       margin-top: 5%;
       margin-left: 45%;
-    }
+    }*/
 
     #dismiss {
+      margin-top: 20px;
       float:right;
     }
 
@@ -49,6 +50,11 @@
       text-align: center;
     }
 
+    .row-logout {
+      background-color: #272d28;
+    }
+
+
   </style>
 </head>
 
@@ -56,20 +62,24 @@
   <div class="container">
     <div data-role = "content" id="content">
       <div id="map"></div>
-      <div class="alert_box text-center">
-        <button id="check_for_alerts" type="button" class="btn btn-primary">Check for Alerts</button>
+      <br>
+        <div class="row">    
+          <div class="col-xs-12">
+            <div class="alert_box text-center">
+              <button id="check_for_alerts" type="button" class="btn btn-primary">Check for Alerts</button>
+              <div>
+                <!-- <img class="img-circle" src="https://66.media.tumblr.com/e0eef5b922e0410b30e9de3253ab15b5/tumblr_mvw1z7cLyQ1r3i1mvo1_500.jpg", style="width: 30%; max-height: 30%">
+                <button class= "btn btn-secondary" id="dismiss">Dismiss</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    
-    <div>
-      <a href="index.html"><button id="logout" type="button" class="btn btn-secondary">Logout</button></a>
-    </div>
+      <div class="row-logout">
+        <a href="index.html"><button id="logout" type="button" class="btn btn-secondary">Logout</button></a>
+      </div>
+    </div> 
   </div>
-
-<!--   <div class="button_container">
-
-  </div> -->
 
   <script>
     var map;
@@ -113,11 +123,12 @@
 
     $(document).ready(function() {
       $('#check_for_alerts').on('click', function() {
+        var id = localStorage["user_id"];
         $.ajax({
           method: 'GET',
           dataType: 'json',
           crossDomain: true,
-          url: 'http://skipatrolproductiondatabase.herokuapp.com/patrollers/1/alert',
+          url: 'http://skipatrolproductiondatabase.herokuapp.com/patrollers/'+id+'/alert',
           success: function(data) {
             if( data["lat"] && data["long"])
             {

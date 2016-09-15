@@ -16,16 +16,25 @@
             <script type="text/javascript" src="cordova.js"></script>
             <script type="text/javascript" src="js/index.js"></script>
 
+            <!-- This bootstrap code makes the pages responsive to any device width -->
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            
+            <!-- Bootstrap - Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+            <!-- Bootstrap - Optional theme -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+            <!-- Bootstrap Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
             <style>
-                body {background-image: url('img/Ski_patrol_image_mobile.png'); background-repeat:no-repeat; background-size: cover;
+                #login-form {background-image: url('img/Ski_patrol_image_mobile.png'); background-repeat:no-repeat; background-size: cover;
                 }
 
-                .title {
-                    color: white;
-                }
-
-                #login-form h1 {
-                    color: white;
+                .navbar{
+                    background-color: #272D28;
                 }
 
                 .ui-content {
@@ -42,15 +51,36 @@
                     -webkit-border-radius: 5px;
                     border-radius: 5px; 
                 }
+
+                .logo p {
+                    padding-top: 10px;
+                    font-family: "Menlo-Regular";
+                    font-size: 22px;
+                    color: #66D9EF;
+                    text-transform: none;
+
+                }
+
+                #arg {
+                  color: #FD971F;
+                  font-family: "Menlo-Regular";
+                  font-size: 22px;
+                  font-style: italic;
+
+              }
         </style>
     </head>
     <body>
-        <div data-role="page" data-theme="a" id="login-form">
-            <div data-role="header">
-                <h1>Welcome to SkiApp for Patrollers!</h1>
+        <div data-role="page" id="login-form">
+            <div class="navbar navbar-fixed-top">
+              <div class="container">
+                <div class="header logo"> 
+                  <p>snowBlind(<span id="arg">skiPatrol</span>)</p>
+                </div>
+              </div>
             </div>
 
-            <div data-role = 'main' class="ui-content">
+            <div class="ui-content">
                 <form action="https://skipatrolproductiondatabase.herokuapp.com/patrollers/login" id="login" method="post">
                     <div>
                         <label class="title"></label>
