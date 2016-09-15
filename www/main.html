@@ -54,6 +54,11 @@
       background-color: #272d28;
     }
 
+    img {
+      position: relative;
+      left: -20px;
+    }
+
 
   </style>
 </head>
@@ -111,7 +116,7 @@
       $('#check_for_alerts').remove();
       $('.alert_box').append('<div>').text(data["name"]).attr('id', 'alert-name');
       $('.alert_box').prepend($('<img>'));
-      $('.alert_box img').attr('src', 'https://66.media.tumblr.com/e0eef5b922e0410b30e9de3253ab15b5/tumblr_mvw1z7cLyQ1r3i1mvo1_500.jpg').attr('style', 'width: 30%; max-height: 30%');
+      $('.alert_box img').attr('class', 'img-circle').attr('src', 'https://66.media.tumblr.com/e0eef5b922e0410b30e9de3253ab15b5/tumblr_mvw1z7cLyQ1r3i1mvo1_500.jpg').attr('style', 'width: 30%; max-height: 30%');
       $('.alert_box').append($('<button>').text('Dismiss').attr('id', 'dismiss').attr('class', 'btn btn-secondary'));
     }
 
